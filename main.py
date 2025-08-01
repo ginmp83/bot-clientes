@@ -34,6 +34,6 @@ updater = Updater(token=TOKEN, use_context=True)
 dp = updater.dispatcher
 dp.add_handler(MessageHandler(Filters.text & ~Filters.command, responder))
 
-print("🤖 Bot iniciado correctamente. Esperando mensajes...")
+print("✅ Bot activo y esperando mensajes...")
 updater.start_polling()
 updater.idle()
