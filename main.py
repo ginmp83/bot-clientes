@@ -1,13 +1,13 @@
-import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from telegram.ext import Updater, MessageHandler, Filters, CallbackContext
 from telegram import Update
+import os
 
 # === Token del bot desde variable de entorno ===
-TOKEN = os.environ["TOKEN"]
+TOKEN = os.getenv("TOKEN")
 
-# === Configurar acceso a Google Sheets ===
+# === Acceso a Google Sheets ===
 scope = [
     "https://spreadsheets.google.com/feeds",
     "https://www.googleapis.com/auth/drive"
@@ -15,9 +15,9 @@ scope = [
 creds = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", scope)
 client = gspread.authorize(creds)
 sheet = client.open("Bot clientes Fox").sheet1
-telefonos = [str(x) for x in sheet.col_values(2)[1:]]  # Columna B, sin encabezado
+telefonos = [str(x) for x in sheet.col_values(2)[1:]]
 
-# === Función de respuesta ===
+# === Respuesta del bot ===
 def responder(update: Update, context: CallbackContext):
     texto = update.message.text.strip()
     chat_id = update.effective_chat.id
